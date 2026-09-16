@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - Cloud Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Cloud Student Portal</h1>
+    <p>Student Login</p>
+</header>
+
+<main class="login-container">
+    <section class="login-card">
+        <h2>Student Login</h2>
+        <p>Login to access your student dashboard.</p>
+
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit">Login</button>
+
+            <p id="message"></p>
+        </form>
+
+        <div class="demo-box">
+            <strong>Demo Student Account</strong>
+            <p>Email: student@cloudportal.com</p>
+            <p>Password: student123</p>
+        </div>
+
+        <a href="/">? Back to Home</a>
+    </section>
+</main>
+
+<footer>
+    Cloud Student Portal | Cloud Computing Mini Project
+</footer>
+
+<script src="login.js"></script>
+</body>
+</html>

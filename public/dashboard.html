@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Cloud Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Cloud Student Portal</h1>
+    <p>Student Dashboard</p>
+</header>
+
+<main class="dashboard-container">
+
+    <section class="dashboard-card">
+        <h2>Welcome, <span id="studentName">Student</span></h2>
+        <p>Your authenticated student dashboard</p>
+    </section>
+
+    <section class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <h3>Student Information</h3>
+
+            <p><strong>Name:</strong> <span id="name">Loading...</span></p>
+            <p><strong>Student ID:</strong> <span id="studentId">Loading...</span></p>
+            <p><strong>Email:</strong> <span id="email">Loading...</span></p>
+            <p><strong>Course:</strong> <span id="course">Loading...</span></p>
+            <p><strong>Role:</strong> <span id="role">Loading...</span></p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Cloud Application</h3>
+
+            <p>Application: Cloud Student Portal</p>
+            <p>Deployment: Railway Cloud</p>
+            <p>Accessibility: <strong>Public HTTPS</strong></p>
+            <p>Security: <strong>Helmet + JWT</strong></p>
+            <p>Architecture: <strong>Cloud Web Service</strong></p>
+        </div>
+
+    </section>
+
+    <section class="dashboard-card">
+        <h3>System Status</h3>
+        <p id="serverStatus">Checking server...</p>
+    </section>
+
+    <button id="logoutButton">Logout</button>
+
+</main>
+
+<footer>
+    Cloud Student Portal | Cloud Computing Mini Project
+</footer>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
