@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Student Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #1e3a8a;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .intro h2 {
+            margin-bottom: 10px;
+            color: #1e3a8a;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .status {
+            margin-top: 25px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        #health {
+            margin-top: 10px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            background: #1e3a8a;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Cloud Student Portal</h1>
+        <p>A Simple Cloud-Based Web Application</p>
+    </header>
+
+    <main class="container">
+
+        <section class="intro">
+            <h2>About the Project</h2>
+            <p>
+                Cloud Student Portal is a simple web application designed
+                to demonstrate cloud computing concepts such as
+                accessibility, scalability, and basic security.
+            </p>
+        </section>
+
+        <section class="cards">
+
+            <div class="card">
+                <h3>Accessibility</h3>
+                <p>
+                    The application can be accessed through a public
+                    HTTPS URL from different devices and locations.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Scalability</h3>
+                <p>
+                    The application is designed as a stateless web service
+                    that can run on multiple cloud instances.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Security</h3>
+                <p>
+                    Helmet security middleware, HTTPS deployment,
+                    environment variables, and Git protection are used.
+                </p>
+            </div>
+
+        </section>
+
+        <section class="status">
+            <h2>Application Status</h2>
+            <p>Checking server status...</p>
+            <div id="health">Loading...</div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Cloud Student Portal | Cloud Computing Mini Project</p>
+    </footer>
+
+    <script>
+        fetch("/api/health")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("health").textContent =
+                    JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById("health").textContent =
+                    "Server connection failed.";
+                console.error(error);
+            });
+    </script>
+
+</body>
+</html>
