@@ -14,20 +14,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET;
 
-if (!JWT_SECRET) {
-    console.warn("WARNING: JWT_SECRET is not configured.");
-}
+// Demo credentials for college project
+const DEMO_EMAIL = "student@cloudportal.com";
+const DEMO_PASSWORD = "student123";
 
-// Home page
+const JWT_SECRET =
+    process.env.JWT_SECRET || "CloudStudentPortal_Demo_Secret_2026";
+
+// Home
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Login API
+// Login
 app.post("/api/login", (req, res) => {
     const { email, password } = req.body;
+
+    console.log("Login attempt:", email);
 
     if (!email || !password) {
         return res.status(400).json({
@@ -36,26 +40,16 @@ app.post("/api/login", (req, res) => {
         });
     }
 
-    if (
-        email !== process.env.DEMO_EMAIL ||
-        password !== process.env.DEMO_PASSWORD
-    ) {
+    if (email.trim() !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
         return res.status(401).json({
             success: false,
             message: "Invalid email or password"
         });
     }
 
-    if (!JWT_SECRET) {
-        return res.status(500).json({
-            success: false,
-            message: "Server security configuration is missing"
-        });
-    }
-
     const token = jwt.sign(
         {
-            email: email,
+            email: DEMO_EMAIL,
             name: "Cloud Student",
             role: "student"
         },
@@ -68,11 +62,11 @@ app.post("/api/login", (req, res) => {
     res.json({
         success: true,
         message: "Login successful",
-        token
+        token: token
     });
 });
 
-// Authentication middleware
+// Authentication
 function authenticateToken(req, res, next) {
     const authHeader = req.headers.authorization;
 
@@ -83,11 +77,10 @@ function authenticateToken(req, res, next) {
         });
     }
 
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.substring(7);
 
     try {
-        const user = jwt.verify(token, JWT_SECRET);
-        req.user = user;
+        req.user = jwt.verify(token, JWT_SECRET);
         next();
     } catch (error) {
         return res.status(403).json({
@@ -97,7 +90,7 @@ function authenticateToken(req, res, next) {
     }
 }
 
-// Protected student information
+// Student information
 app.get("/api/me", authenticateToken, (req, res) => {
     res.json({
         success: true,
@@ -112,18 +105,18 @@ app.get("/api/me", authenticateToken, (req, res) => {
     });
 });
 
-// Health check
+// Health
 app.get("/api/health", (req, res) => {
     res.json({
         success: true,
         application: "Cloud Student Portal",
         status: "Running",
-        environment: process.env.NODE_ENV || "development",
+        environment: process.env.NODE_ENV || "production",
         timestamp: new Date().toISOString()
     });
 });
 
-// Application information
+// Info
 app.get("/api/info", (req, res) => {
     res.json({
         application: "Cloud Student Portal",
@@ -134,7 +127,7 @@ app.get("/api/info", (req, res) => {
     });
 });
 
-// 404 handler
+// 404
 app.use((req, res) => {
     res.status(404).json({
         success: false,
